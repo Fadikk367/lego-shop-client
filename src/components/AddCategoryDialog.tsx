@@ -8,17 +8,24 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
+import axios from '../api';
+import categoryApi from '../api/Category';
+import { useQuery } from 'react-query';
+
 interface AddCategoryDialogProps {
   isOpen: boolean;
   handleClose(): void;
 }
 
 const AddCategoryDialog: React.FC<AddCategoryDialogProps> = ({ isOpen, handleClose }) => {
+  const {refetch} = useQuery('categories', categoryApi.getAll, { cacheTime: 5 });
   const [categoryName, setCategoryName] = useState('');
 
-  const handleAddCategory = () => {
+  const handleAddCategory = async () => {
     if (categoryName) {
-      console.log('ADD CATEGIRY:', categoryName);
+       await categoryApi.add(categoryName);
+      refetch();
+      handleClose();
     }
   }
 

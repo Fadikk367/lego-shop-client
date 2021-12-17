@@ -1,39 +1,51 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
+import LinearProgress from '@mui/material/LinearProgress';
+
+import axios from '../api';
+import categoryApi from '../api/Category';
+import { useQuery } from 'react-query';
+
+interface Category {
+  id: number;
+  name: string;
+}
 
 const ProductCategories = () => {
-  const categories = [
-    'Creator Expert',
-    'City',
-    'Architecture',
-    'Technic',
-    'Marvel'
-  ];
+  const { isLoading, data: categories } = useQuery('categories', categoryApi.getAll, { cacheTime: 5 });
+
+  const categoryItems = categories ? categories.map(category => (
+    <React.Fragment key={category.id}>
+      <Divider />
+      <ListItemButton onClick={() => console.log({category})}>
+        <ListItemText primary={category.name} />
+      </ListItemButton>
+    </React.Fragment>
+  )) : null;
 
   return (
-    <List
-      sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }}
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Categories
-        </ListSubheader>
-      }
-    >
-      {categories.map(category => (
-        <React.Fragment key={category}>
-          <Divider />
-          <ListItemButton>
-            <ListItemText primary={category} />
-          </ListItemButton>
-        </React.Fragment>
-      ))}
-    </List>
+    <>
+      {isLoading ? (
+        <LinearProgress />
+      ) : (
+        <List
+          sx={{ width: 300, bgcolor: 'background.paper' }}
+          aria-labelledby="nested-list-subheader"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Categories
+            </ListSubheader>
+          }
+        >
+          {categoryItems}
+        </List>
+      )}
+    </>
   )
 }
 

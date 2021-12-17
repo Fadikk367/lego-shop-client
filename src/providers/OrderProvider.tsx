@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react'
-
+import orderApi from '../api/Order';
+import useAuth from '../hooks/useAuth';
 interface Product {
   name: string;
   category: string;
@@ -21,6 +22,7 @@ export const OrderContext = createContext<OrderProviderValue | undefined>(undefi
 
 const OrderProvider: React.FC = ({ children }) => {
   const [items, setItems] = useState<Product[]>([]);
+  const auth = useAuth();
 
   const addToCart = (item: Product): void => {
     const isAlreadyInCart = items.some(cartItem => cartItem.id === item.id);
@@ -35,7 +37,9 @@ const OrderProvider: React.FC = ({ children }) => {
   }
 
   const placeOrder = async (): Promise<void> => {
-    console.log('PLACE ORDER', items);
+    if (auth?.user) {
+      const result = await orderApi.placeOrder(auth.user.id, items);
+    }
   }
 
   return (

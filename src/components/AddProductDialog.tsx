@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form'
+import { useQuery } from 'react-query';
 
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -16,8 +17,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { Box } from '@mui/system';
 
-import { useForm, Controller } from 'react-hook-form'
-
+import axios from '../api';
+import categoryApi from '../api/Category';
+import productApi from '../api/Product';
 interface AddCategoryDialogProps {
   isOpen: boolean;
   handleClose(): void;
@@ -25,23 +27,30 @@ interface AddCategoryDialogProps {
 
 interface AddProduct {
   name: string;
-  category: string;
-  price: number;
-  minifigures: number;
-  elements: number;
+  categoryId: string;
+  price: string;
+  minifigures: string;
+  elements: string;
   imageUrl: string;
 }
 
 const AddProductDialog: React.FC<AddCategoryDialogProps> = ({ isOpen, handleClose }) => {
+  const {refetch} = useQuery('products', productApi.getAll, { cacheTime: 5 });
   const {handleSubmit, control, watch} = useForm<AddProduct>();
+  const { data: categories } = useQuery('categories', categoryApi.getAll);
 
   const photoUrl = watch('imageUrl');
 
-  const onValidData = (values: AddProduct) => {
+  const onValidData = async (values: AddProduct) => {
     if (!Object.values(values).some(value => !value)) {
-      console.log('VALID DATA', values);
-    } else {
-      console.log('INVALID DATA');
+      await axios.post('/products', {
+        ...values,
+        price: parseFloat(values.price),
+        minifigures: parseInt(values.minifigures),
+        elements: parseInt(values.elements),
+      });
+      refetch();
+      handleClose();
     }
   };
 
@@ -60,15 +69,15 @@ const AddProductDialog: React.FC<AddCategoryDialogProps> = ({ isOpen, handleClos
           </Box>
           <Stack direction="column" spacing={2} padding={2} flex={2}>
             <Controller
-              name="category"
+              name="categoryId"
               control={control}
               render={({ field }) => (
                 <FormControl fullWidth>
                   <InputLabel id="category-labe">Category</InputLabel>
                   <Select {...field} labelId="category-label" label="Category">
-                    <MenuItem value={'1'}>Creator Expert</MenuItem>
-                    <MenuItem value={'2'}>City</MenuItem>
-                    <MenuItem value={'3'}>Technic</MenuItem>
+                    {categories && categories.map(category => (
+                      <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               )}

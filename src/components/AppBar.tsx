@@ -4,11 +4,23 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image'
 import {useRouter} from 'next/router';
+import useOrder from '../hooks/useOrder';
+import useAuth from '../hooks/useAuth';
 
 const Navigation: React.FC = () => {
   const router = useRouter();
+  const order = useOrder();
+  const auth = useAuth();
+
+  const handleLogout = () => {
+    auth.logout();
+    router.push('/login');
+  }
 
   return (
     <AppBar position='static'>
@@ -22,9 +34,19 @@ const Navigation: React.FC = () => {
             onClick={() => router.push('/')}
           />
         </Box>
-        <IconButton onClick={() => router.push('/cart')}>
-          <ShoppingCartIcon />
-        </IconButton>
+        <Stack direction="row" alignItems="center" columnGap={2}>
+          <IconButton onClick={() => router.push('/cart')}>
+            <Badge badgeContent={order.items.length} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+          <IconButton onClick={() => router.push('/profile')}>
+            <PersonIcon />
+          </IconButton>
+          <IconButton onClick={handleLogout}>
+            <LogoutIcon />
+          </IconButton>
+        </Stack>
       </Stack>
     </AppBar>
   )

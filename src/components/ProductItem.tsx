@@ -22,7 +22,7 @@ const ProductItem: React.FC<ProductItemProps> = ({id, name, price, imageUrl}) =>
   const {removeFromCart} = useOrder();
 
   return (
-    <Card sx={{ padding: '10px', display: 'flex', flexDirection: 'row', gap: '20px' }} elevation={1}>
+    <Card sx={{ padding: '10px', display: 'flex', flexDirection: 'row', gap: '20px' }} elevation={3}>
       <CardMedia
         component="img"
         height="auto"
