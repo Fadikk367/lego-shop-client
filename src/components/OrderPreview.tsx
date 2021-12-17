@@ -23,7 +23,7 @@ const OrderPreview: React.FC<OrderPreviewProps> = ({ order, onProductRate }) => 
           {new Date(order.time).toLocaleString()}
         </Typography>
         <Typography  color="white">
-        Amount: {order.products.reduce((total, item) => total + parseFloat(item.price), 0.0)} $
+        Amount: {order.products.reduce((total, item) => total + item.price, 0.0)} $
         </Typography>
       </Stack>
       <Stack rowGap={1}>
@@ -50,7 +50,7 @@ const OrderPreview: React.FC<OrderPreviewProps> = ({ order, onProductRate }) => 
                 <Typography>
                   {product.rate ? 'Your rate:' : 'Please rate this product:'}
                 </Typography>
-                <Rating size="large" value={product.rate || 0} precision={0.5} onChange={(e, value) => onProductRate(product.id, value)}/>
+                <Rating size="large" value={product.rate || 0} precision={0.5} onChange={(e, value) => onProductRate(product.id, value as number)}/>
               </Stack>
             </Stack>
             <Divider />
