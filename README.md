@@ -8,6 +8,8 @@ email: `foor.bar@email.com`
 
 hasło: `Password123`
 
+Repozytorium z kodem serwera => https://github.com/Fadikk367/lego-shop-server
+
 Z racji wykorzystania serwisu Heroku jako hostingu dla serwera, przy pierwszym wejściu na stroną można doświadczyć długiego ładowania zawartości strony ze względu na usypianie nieaktywnych instancji przez Heroku.
 
 ## Cel projektu
