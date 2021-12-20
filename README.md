@@ -2,6 +2,12 @@
 
 Demo aplikacji => https://lego-shop-client.vercel.app/
 
+Testowe konto:
+
+email: `foor.bar@email.com`
+
+hasło: `Password123`
+
 Z racji wykorzystania serwisu Heroku jako hostingu dla serwera, przy pierwszym wejściu na stroną można doświadczyć długiego ładowania zawartości strony ze względu na usypianie nieaktywnych instancji przez Heroku.
 
 ## Cel projektu
@@ -48,6 +54,8 @@ Zawiera listę produktów znajdujących się w koszyku, proste podsumowanie zam�
 #### **Profil - personalne rekomendacje**
 
 W górnej części strony profilowej znajdują się personalne rekomendacje produktów, będące wynikiem obliczenia podobieństwa użytkowników przy użyciu wpółczynnika korelacji Perasona oraz zastosowania metody k najbliższych sąsiadów.
+
+UWAGA - po założeniu nowego konta nie wyświetlą nam się żadne personalne rekomendacje ponieważ brakuje danych aby obliczyć metrykę podobieństwa, aby ujrzeć pierwsze rekomendacje w oparciu o współczynnik korelacji Pearsona należy dokonać zakupu, ocenić produkty, przejśc na inną zakładkę i wrócić na stronę profilu w celu zaciągnięcia najnowszych danych.
 
 ![profile-1](./doc/profile-1.png)
 
