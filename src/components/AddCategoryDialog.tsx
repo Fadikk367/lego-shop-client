@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-import axios from '../api';
 import categoryApi from '../api/Category';
 import { useQuery } from 'react-query';
 

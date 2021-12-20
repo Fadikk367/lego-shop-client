@@ -48,7 +48,7 @@ const Home: NextPage = () => {
       }}
     >
       <Typography variant="h4" component="h1" gutterBottom>
-        Wanna buy some cool LEGOs?
+        Welcome to our store
       </Typography>
       <RecommendedProducts title="Products with highest ratings:" products={productsRated || []} itemWidth={270}/>
       <Stack direction="row" spacing={3}>

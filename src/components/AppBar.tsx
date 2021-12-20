@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Badge, { BadgeProps } from '@mui/material/Badge';
+import Badge from '@mui/material/Badge';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Image from 'next/image'

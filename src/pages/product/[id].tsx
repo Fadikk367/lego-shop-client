@@ -1,14 +1,11 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '../../components/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import ProductCard from '../../components/ProductCard';
 import PersonIcon from '@mui/icons-material/Person';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import ClassIcon from '@mui/icons-material/Class';
@@ -28,16 +25,19 @@ const Product: React.FC = () => {
   return (
     <Stack direction="column" spacing={5}>
       {!isLoading && product ? (
-        <Stack direction="row">
+        <Stack direction="row" spacing={5}>
           <Box flex={3}>
-            <img src={product.imageUrl} alt=""/>
+            <img src={product.imageUrl} width="100%"/>
           </Box>
-          <Stack direction="column" flex={2} spacing={3}>
-            <Typography variant="h4" component="h5">{product.name}</Typography>
-            <Typography variant="h4" component="h5">{product.price} $</Typography>
-            <Button variant="contained" onClick={() => addToCart(product)}>
-              Add to cart
-            </Button>
+          <Divider orientation="vertical" />
+          <Stack direction="column" flex={2} spacing={3} justifyContent="space-between"  paddingY={5}>
+            <Stack direction="column" spacing={3}>
+              <Typography variant="h4" component="h5">{product.name}</Typography>
+              <Typography variant="h4" component="h5">{product.price} $</Typography>
+              <Button variant="contained" onClick={() => addToCart(product)} sx={{ width: 400 }}>
+                Add to cart
+              </Button>
+            </Stack>
             <Stack direction="row" width="100%" spacing={3}>
               <Stack direction="column" alignItems="center" spacing={2}>
                 <ExtensionIcon sx={{fontSize: '36px'}} />

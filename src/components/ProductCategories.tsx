@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
@@ -7,7 +7,6 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import axios from '../api';
 import categoryApi from '../api/Category';
 import { useQuery } from 'react-query';
 

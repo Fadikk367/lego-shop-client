@@ -33,12 +33,17 @@ class ProductApi {
   }
 
   async mostRated(): Promise<Product[]> {
-    const res = await axios.get<Product[]>(`/products/most-rated`);
+    const res = await axios.get<Product[]>(`/products/best-rated`);
     return res.data;
   }
 
   async alsoBought(productId: number): Promise<Product[]> {
     const res = await axios.get<Product[]>(`/products/${productId}/also-bought`);
+    return res.data;
+  }
+
+  async recommendedForMe(userId: number): Promise<Product[]> {
+    const res = await axios.get<Product[]>(`/products/recommended?user=${userId}`);
     return res.data;
   }
 }

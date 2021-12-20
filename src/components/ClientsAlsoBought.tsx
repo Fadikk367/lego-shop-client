@@ -10,7 +10,7 @@ interface ClientsAlsoBoughtProps {
 }
 
 const ClientsAlsoBought: React.FC<ClientsAlsoBoughtProps> = ({ productId }) => {
-  const {isLoading, data: products} = useQuery('products-also-bought', () => productApi.alsoBought(productId), { cacheTime: 5 });
+  const {isLoading, data: products} = useQuery(`products-also-bought-${productId}`, () => productApi.alsoBought(productId), { cacheTime: 5 });
   return (
     <>
       {!isLoading && products ? <RecommendedProducts title="Clients also bought:" products={products} itemWidth={270}/> : null}

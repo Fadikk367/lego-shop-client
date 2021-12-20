@@ -37,7 +37,7 @@ const Login: NextPage = () => {
           <Controller
             name="password"
             control={control}
-            render={({ field }) => <TextField {...field} label="password" />}
+            render={({ field }) => <TextField {...field} label="password" type="password" />}
           />
           <Stack direction="row" columnGap={3} justifyContent="space-between">
             <Button onClick={() => router.push('/register')}>

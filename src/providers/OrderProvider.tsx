@@ -39,6 +39,7 @@ const OrderProvider: React.FC = ({ children }) => {
   const placeOrder = async (): Promise<void> => {
     if (auth?.user) {
       const result = await orderApi.placeOrder(auth.user.id, items);
+      setItems([]);
     }
   }
 

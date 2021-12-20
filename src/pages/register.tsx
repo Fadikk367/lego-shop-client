@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React, {useContext} from 'react';
+import React from 'react';
 
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -42,7 +42,7 @@ const Register: NextPage = () => {
           <Controller
             name="password"
             control={control}
-            render={({ field }) => <TextField {...field} label="password" />}
+            render={({ field }) => <TextField {...field} label="password" type="password" />}
           />
           <Stack direction="row" columnGap={3} justifyContent="space-between">
             <Button onClick={() => router.push('/login')}>

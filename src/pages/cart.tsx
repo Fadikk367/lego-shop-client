@@ -8,9 +8,11 @@ import Stack from '@mui/material/Stack';
 import ProductItem from '../components/ProductItem';
 import Button from '@mui/material/Button';
 import useOrder from '../hooks/useOrder';
+import useAuth from '../hooks/useAuth';
 import { useRouter } from 'next/router';
 
 const Cart: NextPage = () => {
+  const auth = useAuth();
   const {items, placeOrder} = useOrder();
   const router = useRouter();
 
@@ -53,7 +55,15 @@ const Cart: NextPage = () => {
             <Typography sx={{paddingTop: '20px'}} variant="body1" component="p" width="100%">
               Total: {totalPrice}
             </Typography>
-            <Button variant="contained" onClick={handlePlaceOrder} sx={{marginTop: '40px'}} fullWidth>Place order</Button>
+            <Button 
+              variant="contained" 
+              onClick={handlePlaceOrder} 
+              sx={{marginTop: '40px'}} 
+              fullWidth 
+              disabled={!auth.user || items.length === 0}
+            >
+              Place order
+            </Button>
           </Card>
         </Stack>
       </Stack>
